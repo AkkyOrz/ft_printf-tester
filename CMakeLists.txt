@@ -2,6 +2,8 @@
 cmake_minimum_required(VERSION 3.14)
 project(my_project)
 
+add_compile_options(-Wall -Wextra -Werror)
+
 # GoogleTest requires at least C++11
 set(CMAKE_CXX_STANDARD 11)
 set(PRINTF_PATH ../../ft_printf)
@@ -17,6 +19,7 @@ FetchContent_MakeAvailable(googletest)
 
 # test specific
 enable_testing()
+
 
 add_subdirectory(${PRINTF_PATH} build)
 include_directories(${PRINTF_PATH})
