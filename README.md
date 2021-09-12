@@ -20,7 +20,7 @@ For example, add `CMakeLists.txt` like below in your `libft` repository.
 ```txt
 cmake_minimum_required(VERSION 3.14)
 set(CMAKE_CXX_STANDARD 11)
-project(cmake_example C CXX)
+project(libft)
 add_compile_options(-Wall -Wextra -Werror)
 file(GLOB LIBFT "ft_*.c")
 add_library(libft STATIC ${LIBFT})
@@ -30,14 +30,35 @@ add_library(libft STATIC ${LIBFT})
 
 ```txt
 cmake_minimum_required(VERSION 3.14)
-
+project(ft_printf)
 set(CMAKE_CXX_STANDARD 11)
-set(LIBFT_PATH ./libft)
-
-project(cmake_example C CXX)
+add_subdirectory(libft)
 add_compile_options(-Wall -Wextra -Werror)
-add_subdirectory(${LIBFT_PATH})
 add_library(libftprintf STATIC ft_printf.c)
+```
+
+## my directories
+
+```bash
+$ tree
+.
+├── CMakeLists.txt
+├── ft_printf-tester
+│  ├── build
+│  ├── CMakeLists.txt
+│  ├── main.cpp
+│  └── README.md
+├── ft_printf.c
+├── ft_printf.h
+├── libft
+│  ├── CMakeLists.txt # new
+│  ├── ft_atoi.c
+│  ├── ft_bzero.c
+|  ...
+│  ├── ft_toupper.c
+│  ├── libft.h
+│  └── Makefile
+└── Makefile
 ```
 
 ## command
