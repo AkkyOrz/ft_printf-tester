@@ -170,6 +170,7 @@ TEST(printf, percent_str_not_null_terminated)
 
 	EXPECT_STREQ(output1.c_str(), output2.c_str());
 	EXPECT_EQ(res1, res2);
+	free(str);
 }
 
 /* *******
