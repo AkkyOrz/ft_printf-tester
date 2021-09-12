@@ -153,6 +153,25 @@ TEST(printf, percent_str_NULL)
 	EXPECT_STREQ(output1.c_str(), output2.c_str());
 	EXPECT_EQ(res1, res2);
 }
+
+
+TEST(printf, percent_str_not_null_terminated)
+{
+	char *str = (char *)malloc(3);
+	memset(str, '\0', 3);
+
+	testing::internal::CaptureStdout();
+	int res1 = printf("%s", str);
+	std::string output1 = testing::internal::GetCapturedStdout();
+
+	testing::internal::CaptureStdout();
+	int res2 = ft_printf("%s", str);
+	std::string output2 = testing::internal::GetCapturedStdout();
+
+	EXPECT_STREQ(output1.c_str(), output2.c_str());
+	EXPECT_EQ(res1, res2);
+}
+
 /* *******
  * %p
  *********/
@@ -587,27 +606,7 @@ TEST(printf, percent_all)
 	EXPECT_EQ(res1, res2);
 }
 
-/* *******
- * error
- *********/
 
-TEST(printf, too_long)
-{
-	char *str = (char *)malloc(INT_MAX + 10LL);
-	memset(str, 'A', INT_MAX + 9LL);
-	str[INT_MAX + 10LL] = '\0';
-
-	testing::internal::CaptureStdout();
-	int res1 = printf("%s", str);
-	std::string output1 = testing::internal::GetCapturedStdout();
-
-	testing::internal::CaptureStdout();
-	int res2 = ft_printf("%s", str);
-	std::string output2 = testing::internal::GetCapturedStdout();
-
-	EXPECT_STREQ(output1.c_str(), output2.c_str());
-	EXPECT_EQ(res1, res2);
-}
 
 
 // TEST(printf, too_many_args)
