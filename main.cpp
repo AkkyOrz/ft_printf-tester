@@ -591,6 +591,25 @@ TEST(printf, percent_all)
  * error
  *********/
 
+TEST(printf, too_long)
+{
+	char *str = (char *)malloc(INT_MAX + 10LL);
+	memset(str, 'A', INT_MAX + 9LL);
+	str[INT_MAX + 10LL] = '\0';
+
+	testing::internal::CaptureStdout();
+	int res1 = printf("%s", str);
+	std::string output1 = testing::internal::GetCapturedStdout();
+
+	testing::internal::CaptureStdout();
+	int res2 = ft_printf("%s", str);
+	std::string output2 = testing::internal::GetCapturedStdout();
+
+	EXPECT_STREQ(output1.c_str(), output2.c_str());
+	EXPECT_EQ(res1, res2);
+}
+
+
 // TEST(printf, too_many_args)
 // {
 	// testing::internal::CaptureStdout();
