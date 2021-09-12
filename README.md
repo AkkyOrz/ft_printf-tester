@@ -63,6 +63,8 @@ $ tree
 
 ## command
 
+replace `./build/main` to your executable file.
+
 ```bash
-cmake -S . -B build && cmake --build build && ./build/
+cmake -S . -B build && cmake --build build && ./build/main
 ```
