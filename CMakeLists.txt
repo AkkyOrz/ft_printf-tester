@@ -4,7 +4,7 @@ project(my_project)
 
 # GoogleTest requires at least C++11
 set(CMAKE_CXX_STANDARD 11)
-set(LIBFT_PATH ../ft_printf)
+set(PRINTF_PATH ../../ft_printf)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -18,10 +18,8 @@ FetchContent_MakeAvailable(googletest)
 # test specific
 enable_testing()
 
-add_subdirectory(${PRITNF_PATH})
-
-
-add_library(libftprintf STATIC ft_printf.c)
+add_subdirectory(${PRINTF_PATH} build)
+include_directories(${PRINTF_PATH})
 
 add_executable(
   main
