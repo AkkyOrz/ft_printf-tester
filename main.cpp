@@ -142,11 +142,12 @@ TEST(printf, percent_str_double)
 TEST(printf, percent_str_NULL)
 {
 	testing::internal::CaptureStdout();
-	int res1 = printf("%s %s\n", NULL, NULL);
+	char *s = NULL;
+	int res1 = printf("%s %s\n", s, s);
 	std::string output1 = testing::internal::GetCapturedStdout();
 
 	testing::internal::CaptureStdout();
-	int res2 = ft_printf("%s %s\n", NULL, NULL);
+	int res2 = ft_printf("%s %s\n", s, s);
 	std::string output2 = testing::internal::GetCapturedStdout();
 
 	EXPECT_STREQ(output1.c_str(), output2.c_str());
