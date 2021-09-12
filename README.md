@@ -4,6 +4,8 @@ This is a tester for the `ft_printf` project of 42 school.
 Clone this tester in your `ft_printf` repository.
 And prepare `CMakeLists.txt` for every your repository you use.
 
+**only the 'mandatory' part is supported now**
+
 ## dependency
 
 - cmake
