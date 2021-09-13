@@ -173,6 +173,26 @@ TEST(printf, percent_str_not_null_terminated)
 	free(str);
 }
 
+TEST(printf, percent_str_not_ascii_include)
+{
+	unsigned char *str = (unsigned char *)malloc(257);
+	for (int i = 0; i < 256; i++){
+		str[i] = (unsigned char)(i + 1);
+	}
+	str[256] = '\0';
+	testing::internal::CaptureStdout();
+	int res1 = printf("%s", str);
+	std::string output1 = testing::internal::GetCapturedStdout();
+
+	testing::internal::CaptureStdout();
+	int res2 = ft_printf("%s", str);
+	std::string output2 = testing::internal::GetCapturedStdout();
+
+	EXPECT_STREQ(output1.c_str(), output2.c_str());
+	EXPECT_EQ(res1, res2);
+	free(str);
+}
+
 /* *******
  * %p
  *********/
