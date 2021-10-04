@@ -1,19 +1,18 @@
-#include <gtest/gtest.h>
 #include <fcntl.h>
-#include <stdio.h>
+#include <gtest/gtest.h>
 #include <limits.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 extern "C"
 {
-	#include "ft_printf.h"
+#include "ft_printf.h"
 }
 
 /* *******
  * printf
  *********/
-
 
 TEST(printf, no_specifier1)
 {
@@ -70,7 +69,6 @@ TEST(printf, space)
 	EXPECT_STREQ(output1.c_str(), output2.c_str());
 	EXPECT_EQ(res1, res2);
 }
-
 
 /* *******
  * %c
@@ -154,7 +152,6 @@ TEST(printf, percent_str_NULL)
 	EXPECT_EQ(res1, res2);
 }
 
-
 TEST(printf, percent_str_not_null_terminated)
 {
 	char *str = (char *)malloc(3);
@@ -176,7 +173,8 @@ TEST(printf, percent_str_not_null_terminated)
 TEST(printf, percent_str_not_ascii_include)
 {
 	unsigned char *str = (unsigned char *)malloc(257);
-	for (int i = 0; i < 256; i++){
+	for (int i = 0; i < 256; i++)
+	{
 		str[i] = (unsigned char)(i + 1);
 	}
 	str[256] = '\0';
@@ -252,7 +250,7 @@ TEST(printf, percent_pointer_immidiate)
 	std::string output1 = testing::internal::GetCapturedStdout();
 
 	testing::internal::CaptureStdout();
-	int res2 = ft_printf("%p\n",(void *)1);
+	int res2 = ft_printf("%p\n", (void *)1);
 	std::string output2 = testing::internal::GetCapturedStdout();
 
 	EXPECT_STREQ(output1.c_str(), output2.c_str());
@@ -266,7 +264,7 @@ TEST(printf, percent_pointer_null)
 	std::string output1 = testing::internal::GetCapturedStdout();
 
 	testing::internal::CaptureStdout();
-	int res2 = ft_printf("%p\n",(void *)0);
+	int res2 = ft_printf("%p\n", (void *)0);
 	std::string output2 = testing::internal::GetCapturedStdout();
 
 	EXPECT_STREQ(output1.c_str(), output2.c_str());
@@ -310,7 +308,7 @@ TEST(printf, percent_dec_double)
 TEST(printf, percent_dec_overflow)
 {
 	int64_t d = (long long)INT_MAX + 1;
-	int64_t d2 =  (long long)INT_MIN - 1;
+	int64_t d2 = (long long)INT_MIN - 1;
 	testing::internal::CaptureStdout();
 	int res1 = printf("%d %d\n", (int)d, (int)d2);
 	std::string output1 = testing::internal::GetCapturedStdout();
@@ -326,7 +324,7 @@ TEST(printf, percent_dec_overflow)
 TEST(printf, percent_dec_overflow_longmax)
 {
 	int64_t d = (long long)LONG_MAX;
-	int64_t d2 =  (long long)LONG_MIN;
+	int64_t d2 = (long long)LONG_MIN;
 	testing::internal::CaptureStdout();
 	int res1 = printf("%d %d\n", (int)d, (int)d2);
 	std::string output1 = testing::internal::GetCapturedStdout();
@@ -376,7 +374,7 @@ TEST(printf, percent_int_double)
 TEST(printf, percent_int_overflow)
 {
 	int64_t d = (long long)INT_MAX + 1;
-	int64_t d2 =  (long long)INT_MIN - 1;
+	int64_t d2 = (long long)INT_MIN - 1;
 	testing::internal::CaptureStdout();
 	int res1 = printf("%i %i\n", (int)d, (int)d2);
 	std::string output1 = testing::internal::GetCapturedStdout();
@@ -392,7 +390,7 @@ TEST(printf, percent_int_overflow)
 TEST(printf, percent_long_overflow)
 {
 	int64_t d = (long long)LONG_MAX;
-	int64_t d2 =  (long long)LONG_MIN;
+	int64_t d2 = (long long)LONG_MIN;
 	testing::internal::CaptureStdout();
 	int res1 = printf("%i %i\n", (int)d, (int)d2);
 	std::string output1 = testing::internal::GetCapturedStdout();
@@ -440,26 +438,29 @@ TEST(printf, percent_uint_double)
 	EXPECT_EQ(res1, res2);
 }
 
-TEST(printf, percent_uint_overflow)
+TEST(printf, percent_uint_overflow_int)
 {
-	int64_t d = (long long)INT_MAX + 1;
-	int64_t d2 =  (long long)INT_MIN - 1;
-	testing::internal::CaptureStdout();
-	int res1 = printf("%u %u\n", (int)d, (int)d2);
-	std::string output1 = testing::internal::GetCapturedStdout();
+	for (int i = 1; i < 5; i++)
+	{
+		int64_t d = (long long)INT_MAX + i;
+		int64_t d2 = (long long)INT_MIN - i;
+		testing::internal::CaptureStdout();
+		int res1 = printf("%u %u\n", (int)d, (int)d2);
+		std::string output1 = testing::internal::GetCapturedStdout();
 
-	testing::internal::CaptureStdout();
-	int res2 = ft_printf("%u %u\n", (int)d, (int)d2);
-	std::string output2 = testing::internal::GetCapturedStdout();
+		testing::internal::CaptureStdout();
+		int res2 = ft_printf("%u %u\n", (int)d, (int)d2);
+		std::string output2 = testing::internal::GetCapturedStdout();
 
-	EXPECT_STREQ(output1.c_str(), output2.c_str());
-	EXPECT_EQ(res1, res2);
+		EXPECT_STREQ(output1.c_str(), output2.c_str());
+		EXPECT_EQ(res1, res2);
+	}
 }
 
-TEST(printf, percent_ulong_overflow)
+TEST(printf, percent_uint_overflow_long)
 {
 	int64_t d = (long long)LONG_MAX;
-	int64_t d2 =  (long long)LONG_MIN;
+	int64_t d2 = (long long)LONG_MIN;
 	testing::internal::CaptureStdout();
 	int res1 = printf("%u %u\n", (int)d, (int)d2);
 	std::string output1 = testing::internal::GetCapturedStdout();
@@ -471,7 +472,6 @@ TEST(printf, percent_ulong_overflow)
 	EXPECT_STREQ(output1.c_str(), output2.c_str());
 	EXPECT_EQ(res1, res2);
 }
-
 
 /* *******
  * %x
@@ -509,7 +509,8 @@ TEST(printf, percent_hex_low_case_2)
 
 TEST(printf, percent_hex_low_case_negative)
 {
-	for (int i = -1; i >= -50; i-=10){
+	for (int i = -1; i >= -50; i -= 10)
+	{
 		int d = -1;
 		testing::internal::CaptureStdout();
 		int res1 = printf("%x\n", d);
@@ -560,7 +561,8 @@ TEST(printf, percent_hex_up_case_2)
 
 TEST(printf, percent_hex_up_case_negative)
 {
-	for (int i = -1; i >= -50; i-=10){
+	for (int i = -1; i >= -50; i -= 10)
+	{
 		int d = -1;
 		testing::internal::CaptureStdout();
 		int res1 = printf("%X\n", d);
@@ -575,11 +577,9 @@ TEST(printf, percent_hex_up_case_negative)
 	}
 }
 
-
 /* *******
  * %%
  *********/
-
 
 TEST(printf, percent_percent)
 {
@@ -613,29 +613,29 @@ TEST(printf, percent_percent_double)
  * all
  *********/
 
-
 TEST(printf, percent_all)
 {
 	char str[] = "abc";
 	int d = -100;
 
 	testing::internal::CaptureStdout();
-	int res1 = printf("%s %c %p %d %i %u %x %X %%\n", str, str[0], str, d, d, d, d, d);
+	int res1 =
+		printf("%s %c %p %d %i %u %x %X %%\n", str, str[0], str, d, d, d, d, d);
 	std::string output1 = testing::internal::GetCapturedStdout();
 
 	testing::internal::CaptureStdout();
-	int res2 = ft_printf("%s %c %p %d %i %u %x %X %%\n", str, str[0], str, d, d, d, d, d);
+	int res2 = ft_printf(
+		"%s %c %p %d %i %u %x %X %%\n", str, str[0], str, d, d, d, d, d);
 	std::string output2 = testing::internal::GetCapturedStdout();
 
 	EXPECT_STREQ(output1.c_str(), output2.c_str());
 	EXPECT_EQ(res1, res2);
 }
 
-
 /* *******
- * extras (you have to comment out your compile option in CMakeLists.txt if you want to test below)
+ * extras (you have to comment out your compile option in CMakeLists.txt if you
+ *want to test below)
  *********/
-
 
 // TEST(printf, percent_not_working)
 // {
@@ -681,4 +681,3 @@ TEST(printf, percent_all)
 // 	EXPECT_STREQ(output1.c_str(), output2.c_str());
 // 	EXPECT_EQ(res1, res2);
 // }
-
