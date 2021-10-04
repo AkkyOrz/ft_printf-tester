@@ -509,17 +509,19 @@ TEST(printf, percent_hex_low_case_2)
 
 TEST(printf, percent_hex_low_case_negative)
 {
-	int d = -1;
-	testing::internal::CaptureStdout();
-	int res1 = printf("%x\n", d);
-	std::string output1 = testing::internal::GetCapturedStdout();
+	for (int i = -1; i >= -50; i-=10){
+		int d = -1;
+		testing::internal::CaptureStdout();
+		int res1 = printf("%x\n", d);
+		std::string output1 = testing::internal::GetCapturedStdout();
 
-	testing::internal::CaptureStdout();
-	int res2 = ft_printf("%x\n", d);
-	std::string output2 = testing::internal::GetCapturedStdout();
+		testing::internal::CaptureStdout();
+		int res2 = ft_printf("%x\n", d);
+		std::string output2 = testing::internal::GetCapturedStdout();
 
-	EXPECT_STREQ(output1.c_str(), output2.c_str());
-	EXPECT_EQ(res1, res2);
+		EXPECT_STREQ(output1.c_str(), output2.c_str());
+		EXPECT_EQ(res1, res2);
+	}
 }
 
 /* *******
@@ -558,17 +560,19 @@ TEST(printf, percent_hex_up_case_2)
 
 TEST(printf, percent_hex_up_case_negative)
 {
-	int d = -1;
-	testing::internal::CaptureStdout();
-	int res1 = printf("%X\n", d);
-	std::string output1 = testing::internal::GetCapturedStdout();
+	for (int i = -1; i >= -50; i-=10){
+		int d = -1;
+		testing::internal::CaptureStdout();
+		int res1 = printf("%X\n", d);
+		std::string output1 = testing::internal::GetCapturedStdout();
 
-	testing::internal::CaptureStdout();
-	int res2 = ft_printf("%X\n", d);
-	std::string output2 = testing::internal::GetCapturedStdout();
+		testing::internal::CaptureStdout();
+		int res2 = ft_printf("%X\n", d);
+		std::string output2 = testing::internal::GetCapturedStdout();
 
-	EXPECT_STREQ(output1.c_str(), output2.c_str());
-	EXPECT_EQ(res1, res2);
+		EXPECT_STREQ(output1.c_str(), output2.c_str());
+		EXPECT_EQ(res1, res2);
+	}
 }
 
 
