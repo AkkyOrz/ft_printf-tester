@@ -11,13 +11,26 @@ And prepare `CMakeLists.txt` for every your repository you use.
 - cmake
 - g++
 
+## How to prepare your test (commands)
+
+```bash
+cd /path/to/ft_printf
+git clone https://github.com/AkkyOrz/ft_printf-tester.git
+cd ft_printf-tester
+cp ./ft_printf/CMakeLists.txt ../
+cp ./ft_printf/libft/CMakeLists.txt ../libft/
+cmake -S . -B build && cmake --build build && ./build/main
+```
+
 ## How to prepare your test
+
 
 Prepare `CMakeLists.txt` every in your repository to create your library.
 
 For example, add `CMakeLists.txt` like below in your `libft` repository.
 
 `ft_printf/libft/CMakeLists.txt`
+(`cp ./ft_printf/libft/CMakeLists.txt ../` )
 
 ```txt
 cmake_minimum_required(VERSION 3.14)
@@ -29,6 +42,8 @@ add_library(libft STATIC ${LIBFT})
 ```
 
 `ft_printf/CMakeLists.txt`
+
+(`cp ./ft_printf/libft/CMakeLists.txt ../libft/` )
 
 ```txt
 cmake_minimum_required(VERSION 3.14)
@@ -74,7 +89,7 @@ cmake -S . -B build && cmake --build build && ./build/main
 
 ## CMake installation
 
-### on macOS without root 
+### on macOS without root
 
 install in `~/bin` folder
 
