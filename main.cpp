@@ -632,6 +632,40 @@ TEST(printf, percent_all)
 	EXPECT_EQ(res1, res2);
 }
 
+TEST(printf, percent_all_within_str)
+{
+	char str[] = "abc";
+	int d = -100;
+
+	testing::internal::CaptureStdout();
+	int res1 = printf("%shello%dworld%%%p\n", str, d, &d);
+	std::string output1 = testing::internal::GetCapturedStdout();
+
+	testing::internal::CaptureStdout();
+	int res2 = printf("%shello%dworld%%%p\n", str, d, &d);
+	std::string output2 = testing::internal::GetCapturedStdout();
+
+	EXPECT_STREQ(output1.c_str(), output2.c_str());
+	EXPECT_EQ(res1, res2);
+}
+
+TEST(printf, percent_all_within_str)
+{
+	char str[] = "abc";
+	int d = -100;
+
+	testing::internal::CaptureStdout();
+	int res1 = printf("%shello%dworld%%%p\n", str, d, &d);
+	std::string output1 = testing::internal::GetCapturedStdout();
+
+	testing::internal::CaptureStdout();
+	int res2 = printf("%shello%dworld%%%p\n", str, d, &d);
+	std::string output2 = testing::internal::GetCapturedStdout();
+
+	EXPECT_STREQ(output1.c_str(), output2.c_str());
+	EXPECT_EQ(res1, res2);
+}
+
 /* *******
  * extras (you have to comment out your compile option in CMakeLists.txt if you
  *want to test below)
